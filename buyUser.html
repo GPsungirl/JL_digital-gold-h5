@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css">
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="CSS/vant.css"> -->
+    
+    <link rel="stylesheet" type="text/css" href="CSS/common.css">
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toBuyUser" v-cloak class="pad_15 ">
+        
+        <!-- 标题 -->
+        <van-nav-bar class="bg_t" title="账户" left-text="" left-arrow @click-left="onClickLeft('index')" >
+        </van-nav-bar>
+        
+        <div class="box_shadow_toGuider min_h100 pad_10 mar_b24">
+            <!-- 标题 -->            
+            <van-form validate-first :show-error-message="false" @failed="onFailed" ref="userForm"  @submit="onSubmit">                                               
+                <!-- 通过 validator 进行函数校验 -->
+                <p class="ff_PFSCM pad_l15 pad_t20">手机号</p>
+                <van-field
+                    label=""
+                    v-model="phone"
+                    type="digit"
+                    name="phone"
+                    placeholder="请输入手机号"                    
+                    :rules="[{ validator:validPhone, message: '请输入正确手机号' }]"
+                    >
+                </van-field>
+                <p class="ff_PFSCM pad_l15 pad_t20">姓 名</p>
+                <van-field
+                    label=""
+                    v-model="username"
+                    
+                    name="username" 
+                    placeholder="请输入姓名"
+                    :rules="[{ required: true, message: '姓名不能为空' }]"                           
+                    >
+                </van-field>
+                <p class="ff_PFSCM pad_l15 pad_t20">数字钱包地址</p>
+                <van-field
+                    label=""
+                    v-model="digit_account"
+                    rows="1"
+                    autosize
+                    name="digit_account"
+                    type="textarea"
+                    :rules="[{ required: true, message: '数字钱包地址不能为空' }]"
+                    placeholder="请输入数字钱包地址"
+                    >
+                </van-field>
+                <van-button @click="validDigit" class="gradient btn_small" round block v-show="showValidBtn" native-type="button"  type="info" >
+                    验证钱包    
+                </van-button>
+                <div class="posi_b">
+                  <van-button  class="gradient btn_normal"  round block type="info" native-type="submit">
+                    下一步
+                  </van-button>
+                </div>
+            </van-form>
+            
+            
+        </div>
+        <!-- 弹出加载中 -->
+        <van-popup v-model="showLoading" get-container="body" :close-on-click-overlay="false" style="background-color: transparent;">
+            <van-loading type="spinner" color="#1989fa" vertical>
+            </van-loading>
+        </van-popup>
+        <!-- 验证弹框 -->
+        <!-- <van-popup v-model="showValidDialog">
+            
+        </van-popup> -->
+
+        <!-- 钱包验证 -->
+        <van-dialog class="border_zwrap  addClose format_dialog" v-model="showValidDialog" title="验证提示" :before-close="confirm_valid"  show-cancel-button>
+            <!-- <span class="closeBtn" @click="closeDialog('addClose')">X</span> -->
+            <p class="light_tip">我们正在向您的账户</p>
+            <div class="main_text">{{ digit_account }} </div>              
+            <p class="light_tip">内汇入0.1以下USD1，请耐心等待收到后，请输入具体数值</p>
+            <!-- <cube-form
+                :model="model"
+                :schema="schema"
+                :immediate-validate="false"
+                :options="options"
+                @validate="validateHandler"
+                @submit="submitHandler"
+                @reset="resetHandler"
+            ></cube-form> -->
+            <van-form validate-first :show-error-message="false" @failed="onFailed" ref="validForm">
+                <van-field
+                    v-model="check_digit_num"
+                    name="check_digit_num"
+                    type="number"
+                    placeholder="请输入数值"
+                    :rules="[{ required: true, message: '请输入数值' }]"
+                    >
+                </van-field>               
+              </van-form>
+        </van-dialog>
+
+
+
+        <!-- 实名认证 -->
+        <van-dialog class="border_zwrap border_zwrap_footer format_dialog" v-model="showValidDialog2" title="请完成实名认证" :before-close="confirm_valid2"  >
+            
+            <p class="identity">同一个账户只能认证一次</p>
+            <van-form validate-first :show-error-message="false" @failed="onFailed2" ref="validForm2">
+                <van-field
+                    v-model="realname"
+                    name="realname"
+                    label=""
+                    placeholder="请输入姓名"
+                    :rules="[{ required: true, message: '请输入姓名' }]"
+                    >
+                </van-field>  
+                <van-field
+                    v-model="idcard_encrypt"
+                    name="idcard_encrypt"
+                    label=""
+                    placeholder="请输入身份证"
+                    :rules="[{ required: true, message: '请输入身份证' }]"
+                    >
+                </van-field>             
+              </van-form>
+        </van-dialog>
+    </div>
+
+    <!-- <script src="JS/fastclick.js"></script> -->
+    <!-- <script src="JS/jquery.js"></script>
+    <script src="JS/vue.js"></script>
+    
+    <script src="JS/vant.js"></script> -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <!-- <script src="JS/vue.js" ></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+    <script src="JS/rem.js"></script>
+    <!-- <script src="JS/vconsole.js"></script> -->
+    <script src="JS/utils.js"></script>
+    <script>
+        if (!window.Promise) {
+            document.write(
+                '<script src="//cdn.jsdelivr.net/npm/es6-promise@4.1.1/dist/es6-promise.min.js"><\/script><script>ES6Promise.polyfill()<\/script>'
+            )
+        }
+    </script>    
+    <script src="JS/buyUser.js"></script>
+</body>
+
+</html>

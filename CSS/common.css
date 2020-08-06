@@ -1,0 +1,484 @@
+@font-face {
+    font-family: 'pingfangJ';
+    src: url('../fonts/pingfangJ.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AvenirRoman';
+    src: url('../fonts/Avenir_55_Roman.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PingFangSC-Regular';
+    src: url('../fonts/PingFangSCRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PingFangSC-Medium';
+    src: url('../fonts/PingFang-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* WebKit browsers */
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+
+/* Mozilla Firefox 4 to 18 */
+
+input:focus:-moz-placeholder { color:transparent; }
+
+/* Mozilla Firefox 19+ */
+
+input:focus::-moz-placeholder { color:transparent; }
+
+/* Internet Explorer 10+ */
+
+input:focus:-ms-input-placeholder { color:transparent; }
+
+
+
+/*修改placeholder*/
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    font-family: 'PingFangSC-Medium';
+    color: #BEBEBE;
+
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+
+     color: #BEBEBE;
+
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+
+    color: #BEBEBE;
+
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+
+    color: #BEBEBE;
+
+}
+/*全局 状态栏 */
+.bg_t{
+    background-color: #2D2B39;
+}
+.van-nav-bar__title,.van-nav-bar .van-icon{
+    color:#fff;
+    
+}
+.van-nav-bar__title{
+    font-family: 'PingFangSC-Medium';
+}
+
+html,body{
+    position: relative;
+    height:100%;
+}
+.body>div{
+    height:100%;
+}
+.gradient {
+    background: -moz-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: -webkit-gradient(linear, left, right, color-stop(0%, #49516E), color-stop(100%, #2E364F));
+    background: -webkit-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: -o-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: -ms-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: linear-gradient(to right, #49516E 0%, #2E364F 100%);
+}
+.gradient.van-button--info{
+    border: 1px solid transparent;
+}
+.btn_normal{
+    width:82%;
+    margin:auto;
+}
+.btn_small{
+    width:40%;
+    margin:auto;
+    margin-top: 10px;
+}
+.pad_l15{
+    padding-left:15px;
+}
+.pad_t20{
+    padding-top:20px;
+}
+/* 创建底边框 */
+.border_zwrap{
+    border-radius: 0.2rem;
+}
+.border_zwrap .van-dialog__header{
+    position: relative;
+    padding: 0.22rem 0;
+}
+.border_zwrap .van-dialog__header::after{
+    position: absolute;
+    content:'';
+    box-sizing: border-box;
+    pointer-events: none;
+    bottom: 0;
+    left:0;
+    right:0;
+    border-bottom: 1px solid #ebedf0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+/* .addClose .van-dialog__header::before{
+    position: absolute;
+    content: 'X';
+    box-sizing: border-box;
+    right: 0.1rem;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    top: 0.15rem;
+} */
+.closeBtn{
+    position: absolute;
+    width:30px;
+    height:30px;
+    text-align: center;
+    line-height: 30px;
+    right: 0.1rem;
+    top: 0.15rem;
+    font-size: 18px;
+}
+.identity{
+    text-align: center;
+    color:#616161;
+    font-size: 0.13rem;
+    font-family: 'PingFangSC-Medium';
+    padding-top:0.24rem;
+    padding-bottom:0.04rem;
+}
+
+/* ****格式化一下 dialog 身份认证*/
+.format_dialog  .van-cell::after,
+.format_dialog .van-hairline--top::after{
+    border:none;
+}
+.format_dialog .van-cell.van-field{
+    border:0.5px solid #C38E42;
+    /* -webkit-transform:scaleY(0.5);
+    transform: scaleY(0.5); */
+    box-sizing: border-box;
+    padding:8px 15px; 
+    width:80%;
+    margin:auto;
+    margin-top:0.1rem;
+}
+/* 解决footer */
+.border_zwrap_footer .van-dialog__footer{
+    text-align: center;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+.border_zwrap_footer.van-dialog .van-button{
+    width:80%;
+    margin:auto;
+    border-radius: 25px;
+    color: #fff;
+    height: 46px;
+    line-height: 44px;
+    background: -moz-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: -webkit-gradient(linear, left, right, color-stop(0%, #49516E), color-stop(100%, #2E364F));
+    background: -webkit-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: -o-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: -ms-linear-gradient(left, #49516E 0%, #2E364F 100%);
+    background: linear-gradient(to right, #49516E 0%, #2E364F 100%);
+}
+.goldB{
+    position: absolute;
+    right: 26px;
+    width: 0.5rem;
+    top: -26px;
+    z-index: 11;
+}
+.border_zwrap p{
+    text-align: center;
+    width:70%;
+    margin: auto;
+    color: #616161;
+    padding: 15px 0;
+}
+.light_tip{
+    font-family: 'PingFangSC-Medium';
+    font-size: 0.15rem;
+    line-height: 1.3;
+}
+.main_text{
+    font-family: 'PingFangSC-Medium';
+    font-size: 0.16rem;
+    text-align: center;
+    width:80%;
+    margin: auto;
+
+}
+/* 修改所有的input的宽度 */
+.van-cell:not(:last-child)::after{
+    right:15px;
+}
+.focusInput.van-cell:not(:last-child)::after{
+    border-color:#C38E42 !important;
+}
+/* 下一步 按钮定位 */
+.posi_b{
+    position: fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    margin-bottom:0.2rem;
+}
+.ye_color{
+    color:#C38E42;
+}
+.ye_color  .van-field__control{
+    color:#C38E42;
+}
+/* 容器 */
+.vue_wrap{
+    position: relative;
+    height:100%;
+    padding-top:2rem;
+    box-sizing: border-box;
+}
+.vue_wrap_small{
+    padding-top:0.85rem;
+}
+/* 顶部图 */
+.topBanner{
+    height:2.4rem;
+    position: absolute;
+    top:0;
+    width:100%;
+    text-align: center;
+    z-index: -1;
+}
+.topBanner img{
+    max-width: 100%;       
+}
+
+/* 状态栏 */
+.vue_wrap  .van-nav-bar{
+    position: absolute;
+    top:0;
+    width:100%;
+    background-color: transparent;
+}
+.vue_wrap .van-hairline--bottom::after{
+    border-bottom:0;
+}
+.vue_wrap .van-nav-bar__title,
+.vue_wrap .van-nav-bar .van-icon{
+    color:#fff;    
+}
+
+/* 圆角 */
+.top_radius .van-tabs__wrap{
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.van-field__label,.ff_PFSCM{
+    font-family: 'PingFangSC-Medium';
+    font-size: 0.14rem;
+    color:#616161;
+}
+
+/* ==========表单中（首页）================ */
+/* label */
+.index_vue_wrap .van-field__label{
+    color:#616161;
+    width:56px;
+}
+.index_vue_wrap .van-cell:not(:last-child)::after{
+    left:64px;
+}
+.van-cell:not(:last-child)::after{
+    /* border-color:#F6F6F6; */
+}
+.index_tabW .van-cell:not(:first-child)::after{
+    border-color:transparent;
+}
+
+.van-cell{
+    padding:16px 15px;
+}
+.van-tabs__line{
+    background-color: #C38E42;
+}
+/* input */
+.van-field__control{
+    color:#151515;
+    font-size: 0.16rem;
+}
+.unit_command .van-field__control{
+    color:#BEBEBE;
+    font-size: 0.13rem;
+}
+
+/* ===================账户（表单）======================  */
+
+
+/* ===================支付（）   ================================== */
+.img_pay{
+    max-height: 100%;
+    max-width: 80%;
+
+}
+.buy_pay_wrap .van-tabs--card>.van-tabs__wrap,
+.buy_pay_wrap .van-tabs__nav--card{
+    height:0.49rem;
+    border:none;
+}
+.buy_pay_wrap .van-tabs__nav--card .van-tab{
+    border-right: none;
+}
+.buy_pay_wrap .van-tabs__nav--card .van-tab.van-tab--active{
+    background-color: transparent;
+}
+
+
+/* 顶部 */
+.bp_top{
+    text-align: center;
+}
+
+
+
+/* =============买入支付界面========================== */
+.vue_wrap .content_radius_wrap{
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+.bg_FFF{
+    background-color: #fff;
+}
+
+.pay_main_text{
+    font-size: 0.35rem;
+    color:#C38E42;
+
+}
+.pay_main_text .unit_txt{
+    font-size: 0.15rem;
+}
+
+.tip_wrap{
+    padding-top:0.3rem;
+}
+.tip_wrap .light_tip,
+.left_tip_wrap .light_tip{
+    padding:5px 0;
+}
+.left_tip_wrap{
+    width:70%;
+    padding-left:0.1rem;
+    margin:auto;
+    color:#151515;
+    font-size: 0.18rem;
+}
+.left_tip_wrap .light_tip{
+    font-size: 0.18rem;
+}
+.left_tip_wrap input,
+.left_tip_wrap textarea{
+    color:#151515;
+    font-size: 0.19rem;
+    border:none;
+    width: 100%;
+}
+.click_tip_wrap .light_tip{
+    font-size: 0.12rem;
+    text-align: center;
+    
+} 
+.click_tip_wrap .light_tip:last-child{
+    padding:0.09rem;
+}
+.van_tab_wrap .van-tabs--card{
+    padding-top:22px;
+}
+
+.bs_icon_wrap img{
+    width:14px;
+    margin-right:3px;
+    
+    vertical-align: middle;
+}
+.bs_icon_wrap span{
+    display: inline-block;
+    vertical-align: middle;
+}
+/* =================放币====================== */
+.H_100{
+    height:100%;
+}
+.FBS_wrap,
+.FBE_wrap{
+    padding-top:0.5rem;
+}
+
+.FBS_wrap>div,
+.FBE_wrap>div{
+    width:1.2rem;
+    margin:auto;
+}
+.FBS_wrap>div img,
+.FBE_wrap>div img{
+    max-width: 100%;
+}
+
+.FBS_wrap p{
+    color:#C38E42;
+    font-size: 0.2rem;
+    padding-top:0.47rem;
+    text-align: center;
+}
+.FBE_wrap p{
+    color:#36498B;
+    font-size: 0.2rem;
+    padding-top:0.47rem;
+    text-align: center;
+}
+
+.unit_command{
+    padding: 0 15px;
+}
+.modi_tip_wrap{
+    text-align: center;
+
+}
+.modi_tip_wrap input,
+.modi_tip_wrap textarea{
+    border:none;
+    margin:auto;
+    width:72%;
+    font-size: 0.18rem;
+    text-align: center;
+}
+
+
+
+
+
+.show_bankname{
+    padding:6px 15px; 
+    font-size: 0.15rem;
+    color:#C38E42;
+    font-family: 'PingFangSC-Medium';
+}

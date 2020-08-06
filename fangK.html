@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css">
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="CSS/vant.css">   -->
+    <link rel="stylesheet" type="text/css" href="CSS/common.css">
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toFangK" v-cloak class="pad_15 buy_pay_wrap vue_wrap vue_wrap_small index_vue_wrap">
+        <!-- banner -->
+        <div class="topBanner">
+            <img src="IMG/payBG.jpg" alt="">
+        </div>
+        <!-- 标题 -->
+        <van-nav-bar class="bg_t"  title="放款" left-text="" left-arrow @click-left="onClickLeft('sellPay')" >
+        </van-nav-bar>
+
+        <!-- 主体 -->
+        <div class="box_shadow_toGuider min_h100 pad_10  top_radius bg_FFF H_100 mar_b24 content_radius_wrap top_radius">
+            <div v-show="showSuccess" class="FBS_wrap">
+                <div>
+                    <img src="./IMG/FBsuccess.png" alt="">
+                </div>
+                <p >放款成功</p>
+            </div>
+            <div v-show="showPending" class="FBS_wrap">
+                <p>放款中。。。</p>
+            </div>
+            <div v-show="showTimeout" class="FBS_wrap">
+                <p>等待超时</p>
+            </div>
+            <div v-show="showError" class="FBE_wrap">
+                <div>
+                    <img src="./IMG/FBerror.png" alt="">
+                </div>
+                <p >放款失败</p>
+            </div>
+
+            <div class="posi_b">
+                <van-button class="btn_normal gradient" :disabled="isDisabled"  @click="backToIndex"  round block  native-type="button"  type="info" >
+                    确定
+                </van-button>
+            </div>
+            
+        </div>
+       
+        <!-- 弹出加载中 -->
+        <van-popup v-model="showLoading" get-container="body" :close-on-click-overlay="false" style="background-color: transparent;">
+            <van-loading type="spinner" color="#1989fa" vertical>
+                正在放款请稍等
+            </van-loading>
+        </van-popup>
+                       
+    </div>
+
+    <!-- <script src="JS/fastclick.js"></script> -->
+    <!-- <script src="JS/jquery.js"></script>
+    <script src="JS/vue.js"></script>
+   
+    <script src="JS/vant.js"></script> -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <!-- <script src="JS/vue.js" ></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+    <script src="JS/rem.js"></script>
+    <!-- <script src="JS/vconsole.js"></script> -->
+    <script src="JS/utils.js"></script>
+    <script src="JS/clipboard.min.js"></script>
+    <script>
+        if (!window.Promise) {
+            document.write(
+                '<script src="//cdn.jsdelivr.net/npm/es6-promise@4.1.1/dist/es6-promise.min.js"><\/script><script>ES6Promise.polyfill()<\/script>'
+            )
+        }
+    </script>    
+    <script src="JS/fangK.js"></script>
+</body>
+
+</html>

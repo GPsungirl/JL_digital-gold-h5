@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css">
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="CSS/vant.css">   -->
+    <link rel="stylesheet" type="text/css" href="CSS/common.css">
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toSellPay" v-cloak class="pad_15 buy_pay_wrap vue_wrap vue_wrap_small index_vue_wrap">
+        <!-- banner -->
+        <div class="topBanner">
+            <img src="IMG/payBG.jpg" alt="">
+        </div>
+        <!-- 标题 -->
+        <van-nav-bar class="bg_t" title="支付" left-text="" left-arrow @click-left="onClickLeft('sellUser')" >
+        </van-nav-bar>
+        
+        <div class="box_shadow_toGuider bg_FFF van_tab_wrap   content_radius_wrap min_h100 pad_10 mar_b24">
+            <div class="border_zwrap tip_wrap modi_tip_wrap">
+                <p class="bp_top light_tip">请在 {{ myTime }} 内将USD1</p>
+                
+                <div class="bp_top main_text pay_main_text"><span>{{ digit_num  }}</span><span class="unit_txt">个</span></div>
+                <p class="bp_top light_tip">汇入以下账号</p>
+                <textarea type="text" id="platformAccount_no" :value="account_no" readonly></textarea>
+                <van-button class="copyData_bank btn_small gradient" data-clipboard-target="#platformAccount_no"  round block  native-type="button"  type="info" >
+                    复制数字钱包地址
+                </van-button>
+            </div>
+            
+           
+
+            <div class="posi_b">
+                <div class="click_tip_wrap">
+                    <p class="light_tip">未成功前禁止点击</p>
+                    <p class="light_tip">多次未支付前点击"支付完成"将冻结账号</p>
+                </div>
+               
+                <van-button class="btn_normal gradient" :disabled="isDisabled"  @click="submitOrder"  round block  native-type="button"  type="info" >
+                    支付完成
+                </van-button>
+            </div>
+            
+
+            
+        
+            
+        </div>
+        <!-- 弹出加载中 -->
+        <van-popup v-model="showLoading" get-container="body" :close-on-click-overlay="false" style="background-color: transparent;">
+            <van-loading type="spinner" color="#1989fa" vertical>
+            </van-loading>
+        </van-popup>
+                       
+    </div>
+
+    <!-- <script src="JS/fastclick.js"></script> -->
+    <!-- <script src="JS/jquery.js"></script>
+    <script src="JS/vue.js"></script>
+   
+    <script src="JS/vant.js"></script> -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <!-- <script src="JS/vue.js" ></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+    <script src="JS/rem.js"></script>
+    <!-- <script src="JS/vconsole.js"></script> -->
+    <script src="JS/utils.js"></script>
+    <script src="JS/clipboard.min.js"></script>
+    <script>
+        if (!window.Promise) {
+            document.write(
+                '<script src="//cdn.jsdelivr.net/npm/es6-promise@4.1.1/dist/es6-promise.min.js"><\/script><script>ES6Promise.polyfill()<\/script>'
+            )
+        }
+    </script>    
+    <script src="JS/sellPay.js"></script>
+</body>
+
+</html>

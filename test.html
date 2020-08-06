@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <link rel="stylesheet" type="text/css" href="CSS/vant.css">  
+    <link rel="stylesheet" type="text/css" href="CSS/common.css">
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toFangB" v-cloak class="pad_15 buy_pay_wrap">
+        <!-- 标题 -->
+        <van-nav-bar title="支付" left-text="返回" left-arrow @click-left="onClickLeft" >
+        </van-nav-bar>
+        
+        <div class="box_shadow_toGuider min_h100 pad_10 mar_b24 top_radius">
+
+        </div>
+        <!-- 弹出加载中 -->
+        <van-popup v-model="showLoading" get-container="body" style="background-color: transparent;">
+            <van-loading type="spinner" color="#1989fa" vertical>
+            </van-loading>
+        </van-popup>
+                       
+    </div>
+
+    <!-- <script src="JS/fastclick.js"></script> -->
+    <script src="JS/jquery.js"></script>
+    <script src="JS/vue.js"></script>
+   
+    <script src="JS/vant.js"></script>
+    <script src="JS/rem.js"></script>
+    <!-- <script src="JS/vconsole.js"></script> -->
+    <script src="JS/utils.js"></script>
+    <script src="JS/clipboard.min.js"></script>
+    <script>
+        if (!window.Promise) {
+            document.write(
+                '<script src="//cdn.jsdelivr.net/npm/es6-promise@4.1.1/dist/es6-promise.min.js"><\/script><script>ES6Promise.polyfill()<\/script>'
+            )
+        }
+    </script>    
+    <script src="JS/buyPay.js"></script>
+</body>
+
+</html>

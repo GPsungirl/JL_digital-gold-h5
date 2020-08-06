@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css">
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="CSS/vant.css"> -->
+    <link rel="stylesheet" type="text/css" href="CSS/common.css">
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+        
+    </style>
+    
+</head>
+
+<body>
+    <div id="toBeGuider"   v-cloak class="pad_15 vue_wrap index_vue_wrap">
+        <!-- banner -->
+        <div class="topBanner">
+            <img src="IMG/ic_bg.jpg" alt="">
+        </div>
+        <!-- 标题 -->
+        <!-- 隐藏箭头： left-arrow @click-left="onClickLeft('-1')" -->
+        <van-nav-bar title="数字货币" left-text=""  >
+        </van-nav-bar>
+        
+        <div class="box_shadow_toGuider  min_h100 pad_10 mar_b24 top_radius" style="position: relative;">
+            <img class="goldB" src="IMG/ic_coin.png" alt="">
+            <!-- 标题 -->
+            <!-- <h1 class="tg_caption">基本信息</h1> -->
+            <van-tabs @click="tabBuySale" class="index_tabW">
+                <van-tab title="买入 ">       
+                    <div class="bs_icon_wrap" slot="title"><img :src="buyImg" alt="" ><span>买入</span></div>             
+                    <van-form validate-first @failed="onFailed"   @submit="onSubmit">                                               
+                        <!-- 通过 validator 进行函数校验 -->
+                        <van-field
+                            label="数 量"
+                            v-model="usd1Num"
+                            type="number"
+                            name="usd1Num"
+                            placeholder="输入数量大于0"
+                            @blur="computeTotal('buy')"
+                            :rules="[{ validator, message: '数量大于0且做多七位小数' }]"
+                            >
+                        </van-field>
+
+                        <van-field
+                            label="单 价"
+                            v-model="unitPrice"
+                            readonly 
+                            name="unitPrice" 
+                            class="readInput"                           
+                            >
+                        </van-field>  
+
+                        <van-field
+                            v-model="unit_command"
+                            rows="2"
+                            autosize
+                            label=""
+                            class="unit_command"
+                            type="textarea"
+                            readonly
+                            >
+                        </van-field> 
+
+                        <van-field
+                            label="手续费"
+                            v-model="servePrice"
+                            readonly 
+                            name="servePrice"
+                            class="readInput"                               
+                            >
+                        </van-field>
+
+                        <van-field
+                            label="总 价"
+                            v-model="totalPrice"
+                            readonly 
+                            class="ye_color readInput"
+                            name="totalPrice"                            
+                            >
+                        </van-field>
+
+                        <div class="posi_b" >
+                          <van-button class="btn_normal gradient"  round block type="info" native-type="submit" class="gradient">
+                            下一步
+                          </van-button>
+                        </div>
+                    </van-form>
+                </van-tab>
+                <van-tab title="卖出 ">
+                    <div class="bs_icon_wrap" slot="title"><img :src="sellImg" alt="" ><span>卖出</span></div> 
+                    <van-form validate-first @failed="onFailed"   @submit="onSubmit">
+                        
+                       
+                        <!-- 通过 validator 进行函数校验 -->
+                        <van-field
+                            label="数 量"
+                            v-model="usd1Num"
+                            type="number"
+                            name="usd1Num"
+                            placeholder="数量大于0"
+                            @blur="computeTotal('sell')"
+                            :rules="[{ validator, message: '数量大于0且做多七位小数' }]"
+                            >
+                        </van-field>
+                        <van-field
+                            label="单 价"
+                            v-model="unitPrice"
+                            readonly 
+                            class="readInput"
+                            name="unitPrice"                            
+                            >
+                        </van-field>
+                        
+                        <van-field
+                            label="总 价"
+                            v-model="totalPrice"
+                            readonly 
+                            name="totalPrice"  
+                            class="ye_color readInput"                          
+                            >
+                        </van-field>
+                        <div  class="posi_b" >
+                          <van-button class=" btn_normal gradient "  round block type="info" native-type="submit">
+                            下一步
+                          </van-button>
+                        </div>
+                    </van-form>
+                </van-tab>
+            </van-tabs>
+            <!-- <van-button disabled type="primary" @click="test">禁用状态</van-button>
+            <van-button type="primary" @click="delayms">测试点击时的300ms延迟问题</van-button> -->
+            
+        </div>
+        <!-- 弹出加载中 -->
+        <van-popup v-model="showLoading" get-container="body" :close-on-click-overlay="false" style="background-color: transparent;">
+            <van-loading type="spinner" color="#1989fa" vertical>
+            </van-loading>
+        </van-popup>
+
+    </div>
+
+    <!-- <script src="JS/fastclick.js"></script> -->
+    <!-- <script src="JS/jquery.js" ></script> -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <!-- <script src="JS/vue.js" ></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+    <!-- <script src="JS/vant.js" defer></script> -->
+    <script src="JS/rem.js" ></script>
+    <!-- <script src="JS/vconsole.js"></script> -->
+    <script src="JS/utils.js" ></script>
+    <script>
+        if (!window.Promise) {
+            document.write(
+                '<script src="//cdn.jsdelivr.net/npm/es6-promise@4.1.1/dist/es6-promise.min.js"><\/script><script>ES6Promise.polyfill()<\/script>'
+            )
+        }
+    </script>    
+    <script src="JS/usdt01.js" ></script>
+</body>
+
+</html>
