@@ -54,7 +54,7 @@
                 <van-field
                     label=""
                     v-model="digit_account"
-                    rows="1"
+                    rows="1"                    
                     autosize
                     name="digit_account"
                     type="textarea"
@@ -111,7 +111,10 @@
               </van-form>
         </van-dialog>
 
-
+        <!-- 钱包地址提示框 -->
+        <van-dialog class="border_zwrap addClose format_dialog" v-model="showDigitDialog" title="钱包确认提示" :before-close="confirm_digit"  show-cancel-button>
+            <p class="light_tip">确认使用以下地址作为您收付币的钱包地址，如有错误可能造成交易损失。</p>
+        </van-dialog>
 
         <!-- 实名认证 -->
         <van-dialog class="border_zwrap border_zwrap_footer format_dialog" v-model="showValidDialog2" title="请完成实名认证" :before-close="confirm_valid2"  >

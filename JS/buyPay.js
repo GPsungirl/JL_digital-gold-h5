@@ -261,7 +261,7 @@ let vm = new Vue({
 
             // 判断当前平台账户激活类型：bank:0  alipay:2
             let _platform_account_type = this.activeTab == 'bank'? 0 : 2;
-            
+            // console.log(localStorage.getItem('BtotalNum'))
             let param = {                
                 url: commonURL + '/api/order/addOrderInfo',
                 data: {

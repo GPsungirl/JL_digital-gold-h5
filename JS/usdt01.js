@@ -40,14 +40,14 @@ let vm = new Vue({
         //FastClick.attach(document.body);
         // 默认买入
         this.getCoinData('1');
-        // console.log(this)
-        // this.$toast({
-        //     message:'提交成功',
-        //     duration:5000
-        // })
+        
 
-       
+        // 存储用户的钱包地址（通过接收url传参）
+        let digitaccount = window.location.search.substring(1).split('=')[1]
+        localStorage.setItem('digitaccount',digitaccount)
+        
     },
+    
     watch:{
         // 监听数量
         phone(val){
@@ -65,17 +65,21 @@ let vm = new Vue({
             if(validReg ){                
                 switch(type) {
                     case 'sell':
-                        _all = this.totalSingle /100 * this.usd1Num;                        
+                        _all = this.instancePrice /100 * this.usd1Num * 0.995;                        
                        break;
                     case 'buy':
-                        _all = this.totalSingle /100 * this.usd1Num * 1.01;                        
+                        _all = this.instancePrice /100 * this.usd1Num * 1.01;                        
                        break;
                     default:
-                        _all = this.totalSingle /100 * this.usd1Num * 1.01;
+                        _all = this.instancePrice /100 * this.usd1Num * 1.01;
                         
                 }                 
-                
-                this.totalNum = save2num(_all);                
+                if(type=='sell'){
+                    this.totalNum = save2num(_all,'sell');
+                }else{
+                    this.totalNum = save2num(_all,'buy');
+                }
+                                
                 return  (this.totalNum  + 'CNY')                
             }            
            
@@ -108,7 +112,8 @@ let vm = new Vue({
                             this.unit_command = `因行情可能会发生波动，成交价格最高为¥${this.totalSingle/100}。如价格高于¥${this.totalSingle/100}，购买将会失败，款项直接退回。`
                             break;
                         case '2':
-                            this.unitPrice = `${this.instancePrice / 100} CNY - ${this.prePrice/100} CNY(波动预扣款)`;
+                            // this.unitPrice = `${this.instancePrice / 100} CNY - ${this.prePrice/100} CNY(波动预扣款)`;
+                            this.unitPrice = `${this.instancePrice / 100} CNY `;
                             break;
                         default:
 
@@ -130,13 +135,13 @@ let vm = new Vue({
             if(validV > 9 && validReg ){                
                 switch(type) {
                     case 'sell':
-                        _all = this.totalSingle /100 * this.usd1Num;                        
+                        _all = this.instancePrice /100 * this.usd1Num * 0.995;                        
                        break;
                     case 'buy':
-                        _all = this.totalSingle /100 * this.usd1Num * 1.01;                        
+                        _all = this.instancePrice /100 * this.usd1Num * 1.01;                        
                        break;
                     default:
-                        _all = this.totalSingle /100 * this.usd1Num * 1.01;
+                        _all = this.instancePrice /100 * this.usd1Num * 1.01;
                         
                 }                 
                 
@@ -145,10 +150,10 @@ let vm = new Vue({
             }            
         },
         
-        // 校验正数(>0且小数最多七位)
+        // 校验正数(>0且小数最多两位)
         validator(val){            
             val = Number(val);
-            return /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,7})?$/.test(val);       
+            return /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/.test(val);       
         },
         onFailed(errorInfo) {
             //console.log('failed', errorInfo);
@@ -192,7 +197,7 @@ let vm = new Vue({
             
             
             //  调往下一步
-            // console.log('hello')
+            console.log('hello')
             if(this.Btype == 'buy'){
                 window.location.href="./buyUser.html"
             }else{

@@ -13,7 +13,7 @@ let vm = new Vue({
         showValidDialog:false,
 
         // 是否是未认证
-        isUnValid:true,
+        isUnValid:false,
         // 校验数值
         check_digit_num:'',
         // 订单号
@@ -23,6 +23,8 @@ let vm = new Vue({
 
 
         showValidDialog2:false,
+        showDigitDialog:false,
+        isConfirmDigit:false,
         // 真实姓名
         realname:'',
         // 身份证号
@@ -33,7 +35,18 @@ let vm = new Vue({
         Bnum:'',
     },
     created() {
-        this.Bnum = localStorage.getItem('Bnum');
+        
+        this.Bnum = localStorage.getItem('Bnum');        
+        if(localStorage.getItem('digitaccount')=='undefined'){            
+            this.digit_account = ''
+        }else{
+            this.digit_account = localStorage.getItem('digitaccount')                        
+        }
+        // 钱包地址                               
+         // 测试
+        //  this.digit_account = 'xxx001'
+         // 测试
+
     },
     watch:{
         // 侦听手机号
@@ -64,20 +77,20 @@ let vm = new Vue({
             this.showLoading = true;
             myAjax2(param).then(res => {
                 //成功               
-                console.log(res);   
+                   
                 if (res.code == '0000') {//库里有数据
                     let _result = res.data.userInfo;                    
                     this.username = _result.username;
-                    this.digit_account = _result.digit_account;
+                    // this.digit_account = _result.digit_account;
 
                     // 钱包认证处理
-                    if(_result.check_status == 0 ){ //老用户 未认证                        
-                        this.showValidBtn = true;
-                        this.isUnValid = true;
-                    }else{ //已认证
-                        this.showValidBtn = false;
-                        this.isUnValid = false;
-                    }
+                    // if(_result.check_status == 0 ){ //老用户 未认证                        
+                    //     this.showValidBtn = true;
+                    //     this.isUnValid = true;
+                    // }else{ //已认证
+                    //     this.showValidBtn = false;
+                    //     this.isUnValid = false;
+                    // }
 
 
                     // 实名认证处理 老用户未实名 购买数量>100
@@ -98,8 +111,8 @@ let vm = new Vue({
                         window.location.href="./index.html"
                     },2000)
                 }else { // 库里无数据(需要校验钱包) 新用户 未认证
-                    this.showValidBtn = true;
-                    this.isUnValid = true;
+                    // this.showValidBtn = true;
+                    // this.isUnValid = true;
                     this.showLoading = false; 
 
                     // 新用户必须先身份认证 购买数量>100
@@ -119,7 +132,7 @@ let vm = new Vue({
         // 清空数据
         resetData(){
             this.username = '';
-            this.digit_account = ''; 
+            // this.digit_account = ''; 
             this.showValidBtn = false;     
         },
 
@@ -138,6 +151,7 @@ let vm = new Vue({
                 console.log(res)                                
                 if (res.code == '0000') { 
                     this.showLoading = false;
+                    this.username = this.realname
                     this.$toast(res.msg);
                     done();                                                         
                 } else { 
@@ -148,11 +162,35 @@ let vm = new Vue({
 
             }).catch(err => {})
         },
+
+        // 钱包地址弹出框
+        confirm_digit(action,done){
+            switch(action){
+                case 'cancel':
+                    this.isConfirmDigit = false
+                    done()
+                    break;
+                case 'confirm':
+                    this.isConfirmDigit = true
+                    done()
+                    break;
+
+            }            
+        },  
+
         // 操作-下一步
         onSubmit(val){
-            
+            if(!this.digit_account) return this.$toast('钱包地址必填');
+            // 先验证钱包地址和内存中的是否一致
+            if(!(this.digit_account == localStorage.getItem('digitaccount'))){
+                if(!this.isConfirmDigit){
+                    this.showDigitDialog = true
+                }                               
+            }else{
+                this.isConfirmDigit = true
+            }
             // 先判断用户是否已经验证了
-            if(!this.isUnValid){//重新做一遍新增用户信息接口
+            if(this.isConfirmDigit){//重新做一遍新增用户信息接口
                 // **缓存手机号 用户名 数字钱包
                 localStorage.setItem('Bphone',this.phone);
                 localStorage.setItem('Baccount_no',this.digit_account);
@@ -173,6 +211,7 @@ let vm = new Vue({
                 myAjax2(param).then(res => {                                                          
                     if (res.code == '0000') {
                         // 跳转下一页
+                        console.log('看看总金额'+localStorage.getItem('BtotalNum'))
                         window.location.href="./buyPay.html"
                     } else {                         
                         this.showLoading = false; 
@@ -181,18 +220,18 @@ let vm = new Vue({
     
                 }).catch(err => {})
             }else{
-                this.$toast('请完成钱包验证')
-            }           
+                return 
+            }  
             
-            localStorage.setItem('BtotalPrice',this.totalNum);  
-            localStorage.setItem('Btype',this.Btype); 
-            //  调往下一步
-            if(this.Btype == 'buy'){
-                window.location.href=""
-            }else{
+            // localStorage.setItem('BtotalPrice',this.totalNum);  
+            // localStorage.setItem('Btype',this.Btype); 
+            // //  调往下一步
+            // if(this.Btype == 'buy'){
+            //     window.location.href=""
+            // }else{
 
-            }
-            
+            // }
+            // console.log('过来了吗')
         },
 
         // 提交-验证钱包数值

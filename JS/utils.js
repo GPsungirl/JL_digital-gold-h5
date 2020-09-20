@@ -287,7 +287,7 @@ function trim(str) { //删除左右两端的空格
 
 
 // 多位数保留两位（多的进一位）
-function save2num(val) {
+function save2num(val,type) {
     var val_num = Number(val);
     var val_str = val + '';
     // 判定是否是小数
@@ -298,7 +298,13 @@ function save2num(val) {
         flag2 = val_str.split('.')[1].length > 2;
     }
     if (flag1 && flag2) { //如果是小数且位数多于两位
-        var _val_numf = Number((val_num * 100 + '').split('.')[0]) + 1;
+        var _val_numf;
+        if(type=='sell'){//卖出的时候舍去第三位小数
+            _val_numf = Number((val_num * 100 + '').split('.')[0]) ;
+        }else{ //买入的时候第三位进位
+            _val_numf = Number((val_num * 100 + '').split('.')[0]) + 1;
+        }
+        
         return _val_numf / 100;
     } else {
         return val_num;
@@ -360,6 +366,6 @@ function onClickLeft(type) {
 
 
 // 公共接口正式
-var commonURL = 'http://3.114.17.241:6970'
+// var commonURL = 'http://3.114.17.241:6970'
 
-// var commonURL = 'http://192.168.1.177:6970'
+var commonURL = 'http://27.219.180.199:6970'
