@@ -366,6 +366,6 @@ function onClickLeft(type) {
 
 
 // 公共接口正式
-// var commonURL = 'http://3.114.17.241:6970'
+var commonURL = 'http://3.114.17.241:6970'
 
-var commonURL = 'http://27.219.180.199:6970'
+// var commonURL = 'http://27.219.180.199:6970'
